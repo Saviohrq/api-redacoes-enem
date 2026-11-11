@@ -1,0 +1,1 @@
+Amostras geradas por experimentos/preparar_dados.py com semente=42, tamanho=250, minimo_por_faixa=15, faixas da nota total=[0, 200, 400, 600, 800].
