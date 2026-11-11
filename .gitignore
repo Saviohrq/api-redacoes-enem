@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.pytest_cache/
+# dados gerados localmente (corpus, índices, banco de registros)
+dados/*
+!dados/README.md
+!dados/splits/
+!dados/amostras/
