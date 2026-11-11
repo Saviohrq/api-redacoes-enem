@@ -18,7 +18,7 @@ class Config(BaseSettings):
     gemini_model: str = ""
 
     ollama_url: str = "http://localhost:11434"
-    ollama_model: str = "llama3.2-vision:11b"
+    ollama_model: str = "qwen2.5vl:7b"
 
     essaybr_dir: Path = RAIZ / "dados" / "essay-br"
     embeddings_model: str = "intfloat/multilingual-e5-base"

@@ -1,6 +1,6 @@
 # API de pré-análise de redações do ENEM (TCC)
 
-API em FastAPI que sugere, para cada competência do ENEM (C1 a C5), uma nota (0, 40, 80, 120, 160 ou 200) e uma justificativa, usando LLMs de provedores intercambiáveis (Gemini, Claude e Llama) e recuperação de redações corrigidas (RAG). A nota é uma **sugestão**: quem decide é o professor.
+API em FastAPI que sugere, para cada competência do ENEM (C1 a C5), uma nota (0, 40, 80, 120, 160 ou 200) e uma justificativa, usando LLMs de provedores intercambiáveis (Gemini, Claude e Qwen2.5-VL, este aberto e rodando localmente) e recuperação de redações corrigidas (RAG). A nota é uma **sugestão**: quem decide é o professor.
 
 | Operação | O que faz |
 |---|---|
@@ -20,7 +20,7 @@ app/
   prompts.py         prompt de avaliação (critérios INEP) e de transcrição, com versão
   esquemas.py        formatos de entrada/saída e esquema JSON das notas
   registro.py        registro das chamadas em SQLite
-  provedores/        interface única + Gemini, Anthropic (Claude), Ollama (Llama) e "simulado"
+  provedores/        interface única + Gemini, Anthropic (Claude), Ollama (Qwen2.5-VL) e "simulado"
   rag/               leitura do Essay-BR, splits e recuperação (similares ou aleatórios)
 experimentos/
   preparar_dados.py  splits do Essay-BR + amostra fixa de teste (semente 42)
@@ -73,7 +73,7 @@ Abra http://localhost:8000/docs para testar as rotas pelo navegador. Exemplo de 
 }
 ```
 
-`provedor` pode ser `gemini`, `anthropic`, `ollama` ou `simulado` (falso, para testes). Para o Llama, instale o [Ollama](https://ollama.com) e rode `ollama pull llama3.2-vision:11b` antes.
+`provedor` pode ser `gemini`, `anthropic`, `ollama` ou `simulado` (falso, para testes). Para o modelo aberto, instale o [Ollama](https://ollama.com) e rode `ollama pull qwen2.5vl:7b` antes.
 
 ## Experimentos
 
@@ -111,5 +111,6 @@ Se a cota acabar ou der erro, é só rodar o mesmo comando de novo: o que já de
 - **Controle da Fase 2**: k redações sorteadas do treino, com semente fixa por redação (mesmo sorteio para todos os modelos e repetições).
 - **Notas**: o esquema JSON restringe cada nota aos seis níveis válidos; a resposta é validada antes de ser aceita.
 - **Repetições**: 3 por configuração; as métricas são a média das repetições, com IC de 95% por bootstrap (1.000 reamostras das redações).
-- **Temperatura**: 0 no Gemini e no Llama. O Claude Haiku 5.5 não aceita temperatura; usa `effort` (registrado).
+- **Temperatura**: 0 no Gemini e no Qwen2.5-VL. O Claude Haiku 5.5 não aceita temperatura; usa `effort` (registrado).
 - **Pré-análise modo único**: duas chamadas ao mesmo modelo (transcrição, depois avaliação), o que permite medir o CER também nesse modo.
+- **Modelo aberto**: o plano era o Llama 3.2 Vision 11B, mas o Ollama 0.40 não carrega mais a arquitetura `mllama`. Foi trocado pelo Qwen2.5-VL 7B (Alibaba): aberto, multimodal (necessário para a transcrição), de um terceiro fornecedor e próximo em tamanho.

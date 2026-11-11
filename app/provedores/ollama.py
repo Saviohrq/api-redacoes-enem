@@ -1,4 +1,4 @@
-"""Provedor Llama executado localmente pelo Ollama (API HTTP em localhost:11434)."""
+"""Provedor de modelo aberto (Qwen2.5-VL) executado localmente pelo Ollama (API HTTP em localhost:11434)."""
 from __future__ import annotations
 
 import base64
