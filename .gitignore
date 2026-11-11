@@ -9,3 +9,5 @@ dados/*
 !dados/README.md
 !dados/splits/
 !dados/amostras/
+!dados/registro.sqlite
+!dados/resultados/
