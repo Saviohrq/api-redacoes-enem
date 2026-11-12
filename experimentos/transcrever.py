@@ -35,7 +35,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--provedor", required=True, choices=["anthropic", "gemini", "ollama", "simulado"])
     ap.add_argument("--modelo", default=None, help="padrão: o do .env")
-    ap.add_argument("--repeticoes", type=int, default=1)
+    ap.add_argument("--repeticoes", type=int, default=3)
     ap.add_argument("--limite", type=int, default=None, help="usa só as N primeiras páginas (teste rápido)")
     ap.add_argument("--paralelo", type=int, default=1, help="chamadas simultâneas (cuidado com a cota)")
     ap.add_argument("--experimento", default=None, help="nome da rodada (padrão: gerado a partir da configuração)")
