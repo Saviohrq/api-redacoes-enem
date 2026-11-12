@@ -75,7 +75,7 @@ class PedidoAvaliacao(BaseModel):
     recuperacao: ConfigRecuperacao = ConfigRecuperacao()
     incluir_textos_motivadores: bool = True
     # usados pelos experimentos: impedem que a própria redação (ou outras) entrem como exemplo
-    redacao_id: Optional[int] = None
+    redacao_id: Optional[int | str] = None  # int no Essay-BR; texto no BRESSAY (ex.: "0635-026")
     proposta_id: Optional[int] = None
     excluir_ids: list[int] = []
 

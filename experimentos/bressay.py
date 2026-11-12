@@ -72,6 +72,17 @@ def normalizar_hipotese(texto: str) -> str:
     return juntar_linhas(texto)
 
 
+def texto_para_avaliacao(bruto: str) -> str:
+    """Transcrição de referência pronta para ser avaliada (Fase 4): aplica as mesmas regras da
+    normalização, mas mantém a divisão em parágrafos (linha em branco entre eles), como na
+    transcrição pedida ao modelo."""
+    texto = ILEGIVEL.sub(" ", bruto.replace("\r\n", "\n"))
+    texto = RISCADO.sub(" ", texto)
+    texto = MARCAS_POSICAO.sub("", texto)
+    paragrafos = re.split(r"\n\s*\n", texto)
+    return "\n\n".join(p for p in (juntar_linhas(p) for p in paragrafos) if p)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--tamanho", type=int, default=100)

@@ -33,6 +33,12 @@ def test_hifen_dentro_da_linha_preservado():
     assert normalizar_referencia("parceria público-privada") == "parceria público-privada"
 
 
+def test_texto_para_avaliacao_mantem_paragrafos():
+    from experimentos.bressay import texto_para_avaliacao
+    bruto = "Título\n\nPrimeiro pa-\nrágrafo --x-- aqui.\n\nSegundo ##novo## parágrafo."
+    assert texto_para_avaliacao(bruto) == "Título\n\nPrimeiro parágrafo aqui.\n\nSegundo novo parágrafo."
+
+
 def test_cer_zero_quando_igual_apos_normalizar():
     ref = normalizar_referencia("Os filmes, ##então,## possuem a fun-\nção --social--")
     hip = normalizar_hipotese("Os filmes, então, possuem a função")
